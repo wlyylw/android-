@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.activity.MainActivity"
+    android:orientation="horizontal">
+
+
+    <FrameLayout
+        android:id="@+id/main_frame_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_above="@+id/Bottom_Layout"
+        />
+
+    <com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView
+        android:id="@+id/Bottom_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        app:bnv_colored_background="false"
+        app:bnv_with_text="true"
+        app:bnv_shadow="false"
+        app:bnv_tablet="false"
+        app:bnv_viewpager_slide="true"
+        app:bnv_active_color="@color/colorPrimary"
+        app:bnv_active_text_size="@dimen/bottom_navigation_text_size_active"
+        app:bnv_inactive_text_size="@dimen/bottom_navigation_text_size_inactive"
+        tools:ignore="MissingConstraints" />
+
+</RelativeLayout>

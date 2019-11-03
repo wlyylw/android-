@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">news</string>
+    <string name="hello">Hello blank fragment</string>
+    <string name="tab_text_1">关注</string>
+    <string name="tab_text_2">头条</string>
+    <string name="tab_text_3">视频</string>
+    <string name="tab_text_4">娱乐</string>
+    <string name="tab_text_5">体育</string>
+    <string name="tab_text_6">新时代</string>
+    <string name="tab_text_7">要闻</string>
+    <string name="tab_text_8">段子</string>
+    <string name="tab_text_9">知否</string>
+    <string name="tab_text_10">杭州</string>
+</resources>
