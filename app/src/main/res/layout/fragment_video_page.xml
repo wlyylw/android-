@@ -3,130 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:padding="12dp"
-        android:divider="@android:drawable/divider_horizontal_bright"
-        android:showDividers="middle"
-        android:layout_marginVertical="8dp"
-        >
+        android:layout_below="@id/indexpage_toolbar"
+        android:id="@+id/video_tab_line">
+        <com.google.android.material.tabs.TabLayout
 
-        <LinearLayout
+            android:id="@+id/videotab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
-
-            <!--车次名称-->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:id="@+id/trainnumberTextView"/>
-
-            <!--起始站信息-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginHorizontal="8dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/gray"
+            android:layout_weight="1"/>
+        <ImageView
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="20sp"
-                        android:layout_height="20sp"
-                        android:text="过"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/white"
-                        android:layout_marginHorizontal="4dp"
-                        android:id="@+id/startPointLabelTextView"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:text=""
-                        android:textSize="20sp"
-                        android:id="@+id/startPointNameTextView"/>
-                </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginHorizontal="8dp"
-                    android:text=""
-                    android:id="@+id/startTimeTextView"
-                    android:textSize="20sp"/>
-            </LinearLayout>
-
-            <!--路程信息-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:gravity="center">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:text="------------------->"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:id="@+id/costTimeTextView"/>
-            </LinearLayout>
-
-            <!--终点站信息-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginHorizontal="8dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="20sp"
-                        android:layout_height="20sp"
-                        android:text="过"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/white"
-                        android:layout_marginHorizontal="4dp"
-                        android:id="@+id/endPointLabelTextView"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:text=""
-                        android:textSize="20sp"
-                        android:id="@+id/endPointNameTextView"/>
-                </LinearLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginHorizontal="8dp"
-                    android:text=""
-                    android:id="@+id/endTimeTextView"
-                    android:textSize="20sp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-
+                    android:src="@drawable/ic_search"
+                    android:layout_weight="5"/>
 
     </LinearLayout>
-
+    <androidx.viewpager.widget.ViewPager
+        android:layout_below="@id/video_tab_line"
+        android:id="@+id/video_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </RelativeLayout>
 
 </FrameLayout>

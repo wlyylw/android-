@@ -1,14 +1,30 @@
 <resources>
     <string name="app_name">news</string>
     <string name="hello">Hello blank fragment</string>
-    <string name="tab_text_1">关注</string>
-    <string name="tab_text_2">头条</string>
-    <string name="tab_text_3">视频</string>
-    <string name="tab_text_4">娱乐</string>
-    <string name="tab_text_5">体育</string>
-    <string name="tab_text_6">新时代</string>
-    <string name="tab_text_7">要闻</string>
-    <string name="tab_text_8">段子</string>
-    <string name="tab_text_9">知否</string>
-    <string name="tab_text_10">杭州</string>
+    <string name="tab_text_index_1">关注</string>
+    <string name="tab_text_index_2">头条</string>
+    <string name="tab_text_index_3">视频</string>
+    <string name="tab_text_index_4">娱乐</string>
+    <string name="tab_text_index_5">体育</string>
+    <string name="tab_text_index_6">新时代</string>
+    <string name="tab_text_index_7">要闻</string>
+    <string name="tab_text_index_8">段子</string>
+    <string name="tab_text_index_9">知否</string>
+    <string name="tab_text_index_10">杭州</string>
+
+
+    <string name="tab_text_video_1">推荐</string>
+    <string name="tab_text_video_2">小视频</string>
+    <string name="tab_text_video_3">榜单</string>
+    <string name="tab_text_video_4">搞笑</string>
+    <string name="tab_text_video_5">影视</string>
+    <string name="tab_text_video_6">综艺</string>
+    <string name="tab_text_video_7">音乐</string>
+    <string name="tab_text_video_8">军事</string>
+    <string name="tab_text_video_9">黑科技</string>
+    <string name="tab_text_video_10">小品</string>
+
+    <string name="tab_text_circle_1">推荐</string>
+    <string name="tab_text_circle_2">广场</string>
+
 </resources>

@@ -1,30 +1,32 @@
 package com.example.entity;
 
 public class MinePageInformation {
-    String title;
-    String Information;
+    String name;
+    String information;
 
-    public MinePageInformation(String title, String Information){
-        this.title =title;
-        this.Information = Information;
-    }
-    public MinePageInformation(String title){
-        this.title =title;
-        this.Information = "";
-    }
-    public String getTitle() {
-        return title;
+    public MinePageInformation(){
+
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public MinePageInformation(String name, String information)
+    {
+        this.name = name;
+        this.information = information;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getInformation() {
-        return Information;
+        return information;
     }
 
     public void setInformation(String information) {
-        Information = information;
+        this.information = information;
     }
 }

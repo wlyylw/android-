@@ -10,11 +10,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".MainActivity"
             android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:paddingTop="10dp"
+                    android:clickable="true"
+                    android:paddingTop="30dp"
                     android:background="#ffffff"
                     android:overScrollMode="never"
                     android:layout_width="match_parent"
@@ -23,6 +23,7 @@
                     tools:ignore="MissingConstraints" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:clickable="true"
                     android:background="#ffffff"
                     android:overScrollMode="never"
                     android:layout_width="match_parent"
@@ -31,10 +32,10 @@
                     tools:ignore="MissingConstraints" />
 
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:overScrollMode="never"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/recycler_view_InformationA"

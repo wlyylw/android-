@@ -1,14 +1,15 @@
 package com.example.activity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
-import com.example.adapter.SectionsPagerAdapter;
 import com.example.fragment.CirclePage;
 import com.example.fragment.IndexPage;
 import com.example.fragment.MinePage;
@@ -17,7 +18,7 @@ import com.example.news.R;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
-import com.google.android.material.tabs.TabLayout;
+
 public class MainActivity extends AppCompatActivity {
     private Fragment currentFragment  = new Fragment();
     private IndexPage indexPage = new IndexPage();
@@ -99,4 +100,6 @@ public class MainActivity extends AppCompatActivity {
         });
         switchToIndex();//default
     }
+
+
 }

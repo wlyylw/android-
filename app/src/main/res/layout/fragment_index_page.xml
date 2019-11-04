@@ -73,12 +73,12 @@
                 app:tabSelectedTextColor="@color/colorPrimary"
                 app:tabTextColor="@color/gray"
                 android:layout_weight="1"/>
-            <!--        <ImageView-->
-            <!--            android:layout_gravity="center"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:src="@drawable/ic_indexpage"-->
-            <!--            android:layout_weight="5"/>-->
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_indexlist"
+                        android:layout_weight="5"/>
         </LinearLayout>
         <androidx.viewpager.widget.ViewPager
             android:layout_below="@id/index_tab_line"

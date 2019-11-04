@@ -7,10 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.adapter.SectionsPagerAdapter;
+import com.example.adapter.SectionsIndexPagerAdapter;
 import com.example.news.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -92,9 +91,9 @@ public class IndexPage extends BaseFragment {
     private void InitTab()
     {
         tabLayout = getActivity().findViewById(R.id.indextab);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getActivity(), getActivity().getSupportFragmentManager());
+        SectionsIndexPagerAdapter sectionsIndexPagerAdapter = new SectionsIndexPagerAdapter(getActivity(), getActivity().getSupportFragmentManager());
         ViewPager viewPager = getActivity().findViewById(R.id.index_view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
+        viewPager.setAdapter(sectionsIndexPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 }

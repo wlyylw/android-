@@ -5,7 +5,7 @@
     android:clickable="true"
     android:background="@drawable/recycler_touch_bg">
     <LinearLayout
-        android:id="@+id/mine_item_line3"
+        android:id="@+id/mine_item_person_infor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
@@ -23,7 +23,7 @@
             >
 
             <TextView
-                android:id="@+id/mine_name_a"
+                android:id="@+id/mine_property"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -42,10 +42,10 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:text=""
-                    android:id="@+id/mine_information_a"
+                    android:id="@+id/mine_detail"
                     android:paddingTop="5dp"
                     />
             </LinearLayout>
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>

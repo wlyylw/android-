@@ -7,13 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.adapter.SectionCirclePagerAdapter;
+import com.example.adapter.SectionsIndexPagerAdapter;
 import com.example.news.R;
+import com.google.android.material.tabs.TabLayout;
 
 
 public class CirclePage extends BaseFragment {
 
-
+    private TabLayout tabLayout;
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -23,12 +27,13 @@ public class CirclePage extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        InitTab();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -83,5 +88,13 @@ public class CirclePage extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+    }
+    private void InitTab()
+    {
+        tabLayout = getActivity().findViewById(R.id.circletab);
+        SectionCirclePagerAdapter sectionCirclePagerAdapter = new SectionCirclePagerAdapter(getActivity(), getActivity().getSupportFragmentManager());
+        ViewPager viewPager = getActivity().findViewById(R.id.circle_view_pager);
+        viewPager.setAdapter(sectionCirclePagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
