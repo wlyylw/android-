@@ -36,4 +36,5 @@ public class MinePagePerson {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
+
 }
