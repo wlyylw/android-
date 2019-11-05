@@ -37,6 +37,7 @@ import com.example.adapter.MinePageInformationAdapter;
 import com.example.adapter.MinePagePersonAttrAdapter;
 import com.example.entity.MinePersonAttr;
 import com.example.news.R;
+import com.example.util.CustomDialog;
 import com.service.MinePageInformationService;
 import com.service.MinePagePersonAttrService;
 
@@ -72,7 +73,6 @@ public class ChangePersonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_person);
         SetObj();
         ListenerManager();
-        //Information
         minePagePersonAttrService = minePagePersonAttrService.getInstance();
         list = minePagePersonAttrService.getList();
         recyclerView =findViewById(R.id.recycler_view_person_attr);
@@ -100,31 +100,25 @@ public class ChangePersonActivity extends AppCompatActivity {
     }
 
     public void On_Change_picture(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ChangePersonActivity.this);
         PermissionManager();
-        builder.setTitle("提示");
-        builder.setMessage("请选择照片来源");
-        //	第一个按钮
-        builder.setPositiveButton("相册", new DialogInterface.OnClickListener() {
 
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                // TODO Auto-generated method stub
-                //	提示信息
-                openAlbum();
-            }
-        });
-        //	中间的按钮
-        builder.setNeutralButton("相机", new DialogInterface.OnClickListener() {
+            final CustomDialog.Builder builder = new CustomDialog.Builder(this);
+            builder.create();
+            builder.getAlbum().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openAlbum();
+                    builder.getDialog().hide();
+                }
+            });
+            builder.getCamera().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startCamera();
+                    builder.getDialog().hide();
+                }
+            });
 
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-
-                startCamera();
-            }
-        });
-
-        builder.create().show();
 
     }
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
