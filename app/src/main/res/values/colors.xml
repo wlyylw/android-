@@ -147,4 +147,6 @@
     <color name="gray_8f">#8f8f8f</color><!--灰色8f -->
     <color name="white_fa">#FAFAFA</color>
     <color name="bgs">#D7D7D7</color><!--背景 -->
+    <color name="reg_bgs">#d0022f</color><!--背景 -->
+
 </resources>

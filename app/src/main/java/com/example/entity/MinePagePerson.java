@@ -6,6 +6,25 @@ public class MinePagePerson {
     String name;
     String sex;
     Date birthday;
+
+    public String getTelphone() {
+        return telphone;
+    }
+
+    public void setTelphone(String telphone) {
+        this.telphone = telphone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    String telphone;
+    String password;
     public String getName() {
         return name;
     }
