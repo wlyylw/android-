@@ -30,11 +30,6 @@ public class MinePageAdapter extends  RecyclerView.Adapter<MinePageAdapter.ViewH
         }
 
     }
-    public MinePageAdapter(List<MinePageA> list){
-        this.list=list;
-    }
-
-
     @NonNull
     @Override
     public MinePageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

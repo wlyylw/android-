@@ -22,7 +22,6 @@ import com.service.MinePagePersonService;
 import org.litepal.LitePal;
 
 public class MainActivity extends AppCompatActivity {
-//    private final  static  int REQUEST_CODE_LOGIN=520;
     private Fragment currentFragment  = new Fragment();
     private IndexPage indexPage = new IndexPage();
     private VideoPage videoPage = new VideoPage();

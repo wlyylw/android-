@@ -10,6 +10,15 @@ public class MinePagePerson  extends LitePalSupport {
     String birthday;
     String phonenumber;
     String password;
+    private byte[] headshot;//头像
+
+    public byte[] getHeadshot() {
+        return headshot;
+    }
+
+    public void setHeadshot(byte[] headshot) {
+        this.headshot = headshot;
+    }
 
     public String getPhonenumber() {
         return phonenumber;
@@ -36,10 +45,6 @@ public class MinePagePerson  extends LitePalSupport {
     }
     public MinePagePerson() {
 
-    }
-    public MinePagePerson(String name)
-    {
-        this.name = name;
     }
 
     public String getSex() {

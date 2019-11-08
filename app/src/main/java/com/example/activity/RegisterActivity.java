@@ -1,5 +1,6 @@
 package com.example.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,8 +16,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entity.MinePagePerson;
-import com.example.fragment.IndexPage;
-import com.example.fragment.MinePage;
 import com.example.news.R;
 
 import org.json.JSONObject;
@@ -57,11 +56,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         SMSSDK.registerEventHandler(eventHandler);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SMSSDK.unregisterEventHandler(eventHandler);
-    }
 
 
     public void onClick(View view) {
@@ -79,8 +73,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 return;
             }
             //TODO:手机号已被注册的逻辑
-            for(MinePagePerson mPerson: list)
-            {
+            for(MinePagePerson mPerson: list) {
                 if ( mPerson.getPhonenumber().equals(strPhoneNumber))
                 {
                     Toast.makeText(this,"该手机号码已经被注册",Toast.LENGTH_SHORT).show();
@@ -110,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    @SuppressLint("HandlerLeak")
     Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -122,13 +116,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) { //获取验证码
                             Toast.makeText(RegisterActivity.this, "发送验证码成功", Toast.LENGTH_SHORT).show();
                         } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) { //提交验证码
-                            //TODO:数据库逻辑
                             strPassword = password.getText().toString();    //
-                            LitePal.getDatabase();
+                            strPhoneNumber = phoneNumber.getText().toString();
                             MinePagePerson minePagePerson = new MinePagePerson();
                             minePagePerson.setPhonenumber(strPhoneNumber);
                             minePagePerson.setPassword(strPassword);
-
                             minePagePerson.save();
                             Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -161,8 +153,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         }
     };
-    private void SetObj()
-    {
+    private void SetObj() {
         phoneNumber =  findViewById(R.id.phone_number);
         vCode =  findViewById(R.id.verification_code);
         password = findViewById(R.id.register_password);
@@ -180,6 +171,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);  //REQUEST_CODE
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSSDK.unregisterEventHandler(eventHandler);
+    }
+
 }
 
 

@@ -19,11 +19,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]
-            {R.string.tab_text_1, R.string.tab_text_2,
-                    R.string.tab_text_3, R.string.tab_text_4 ,
-                    R.string.tab_text_5, R.string.tab_text_6,
-                    R.string.tab_text_7, R.string.tab_text_8,
-                    R.string.tab_text_9, R.string.tab_text_10
+            {
+//                    R.string.tab_text_1, R.string.tab_text_2,
+//                    R.string.tab_text_3, R.string.tab_text_4 ,
+//                    R.string.tab_text_5, R.string.tab_text_6,
+//                    R.string.tab_text_7, R.string.tab_text_8,
+//                    R.string.tab_text_9, R.string.tab_text_10
             };
     private final Context mContext;
 

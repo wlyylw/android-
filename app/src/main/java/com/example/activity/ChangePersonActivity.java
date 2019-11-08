@@ -1,7 +1,6 @@
 package com.example.activity;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -25,31 +23,24 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.adapter.MinePageInformationAdapter;
-import com.example.adapter.MinePagePersonAdapter;
 import com.example.adapter.MinePagePersonAttrAdapter;
 import com.example.entity.MinePagePerson;
 import com.example.entity.MinePersonAttr;
 import com.example.news.R;
 import com.example.util.CustomDialog;
-import com.service.MinePageInformationService;
 import com.service.MinePagePersonAttrService;
 import com.service.MinePagePersonService;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -58,61 +49,27 @@ public class ChangePersonActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageView;
     MinePagePersonService minePagePersonService;
-    RecyclerView recyclerViewPerson;
-    public String finalDir;       //最终路径
+    public String finalDir;
     public static final int PHOTO_STATUS_CODE = 100;
     private Uri pictureUri;
     private String pictureName;
-    private File pictureFile;        //图片文件
+    private File pictureFile;
     public static final int CHOOSE_PHOTO = 2;
-    private List<MinePagePerson> listMinePerson = new ArrayList<>();
-    private List<MinePersonAttr> list = new ArrayList<>();
-    MinePagePersonAttrService minePagePersonAttrService;
+    Bitmap bitmap;
+    List<MinePagePerson> listMinePerson = new ArrayList<>();
+    List<MinePersonAttr> listInitAttr = new ArrayList<>();
     RecyclerView recyclerView;
-    String detail1;
-    String detail2;
-    String detail3;
+    String imagePath;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_person);
-        SetObj();
-        ListenerManager();
-        minePagePersonAttrService = minePagePersonAttrService.getInstance();
-        list = minePagePersonAttrService.getList();
-        //写成屎山了
-        minePagePersonService = minePagePersonService.getInstance();
-        listMinePerson = minePagePersonService.getList();
-        detail1 = listMinePerson.get(0).getName();
-        detail2 = listMinePerson.get(0).getSex();
-        detail3 = listMinePerson.get(0).getBirthday();
-        minePagePersonAttrService.setMinePagePersonAttrService(detail1,detail2,detail3);
 
-        recyclerView =findViewById(R.id.recycler_view_person_attr);
-        RecyclerView.LayoutManager layoutManagerA = new LinearLayoutManager(ChangePersonActivity.this);
-        recyclerView.setLayoutManager(layoutManagerA);
-        MinePagePersonAttrAdapter minePagePersonAttrAdapter = new MinePagePersonAttrAdapter(this,list);
-        recyclerView.setAdapter(minePagePersonAttrAdapter);
+        minePagePersonService = MinePagePersonService.getInstance();
 
-    }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        minePagePersonService = MinePagePersonService.getInstance();
-//        listMinePerson = minePagePersonService.getList();
-//        MinePagePerson minePagePerson = minePagePersonService.getMinePagePerson();
-//        listMinePerson.remove(0);
-//        listMinePerson.add(minePagePerson);
-//        recyclerViewPerson = findViewById(R.id.recycler_view_mine_person);
-////        RecyclerView.LayoutManager layoutManagerPerson = new LinearLayoutManager(this);
-////        recyclerViewPerson.setLayoutManager(layoutManagerPerson);
-////        MinePagePersonAdapter minePagePersonAdapter = new MinePagePersonAdapter(listMinePerson);
-////        recyclerViewPerson.setAdapter(minePagePersonAdapter);
-//    }
-    private void ListenerManager()
-    {
+        toolbar = findViewById(R.id.change_person_toolbar);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,36 +77,69 @@ public class ChangePersonActivity extends AppCompatActivity {
             }
         });
 
-    }
-    private void SetObj()
-    {
-        toolbar   = findViewById(R.id.change_person_toolbar);
         imageView = findViewById(R.id.mine_picture_second);
 
+        //属性初始化
+        recyclerView = findViewById(R.id.recycler_view_person_attr);
+        RecyclerView.LayoutManager layoutManagerA = new LinearLayoutManager(ChangePersonActivity.this);
+        recyclerView.setLayoutManager(layoutManagerA);
+        MinePagePersonAttrService minePagePersonAttrService = MinePagePersonAttrService.getInstance();
+        listInitAttr = minePagePersonAttrService.getList();
+        MinePagePersonAttrAdapter minePagePersonAttrAdapter = new MinePagePersonAttrAdapter(this, listInitAttr);
+        recyclerView.setAdapter(minePagePersonAttrAdapter);
+
+        //属性赋值
+        minePagePersonAttrService.setMinePagePersonAttrService(minePagePersonService.getMinePagePerson().getName(), minePagePersonService.getMinePagePerson().getSex(), minePagePersonService.getMinePagePerson().getBirthday());
+
+        //头像
+        if (minePagePersonService.getHeadshot() == null) {
+            imageView.setImageResource(R.drawable.touxiang);
+            return;
+        }
+        byte[] images = minePagePersonService.getHeadshot();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(images, 0, images.length);
+        imageView.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (minePagePersonService.getHeadshot() == null) {
+            imageView.setImageResource(R.drawable.touxiang);
+            return;
+        }
+        byte[] images = minePagePersonService.getHeadshot();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(images, 0, images.length);
+        imageView.setImageBitmap(bitmap);
+    }
+
+    //图片转换为字节
+    private byte[]img(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
     }
 
     public void On_Change_picture(View view) {
         PermissionManager();
-
-            final CustomDialog.Builder builder = new CustomDialog.Builder(this);
-            builder.create();
-            builder.getAlbum().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openAlbum();
-                    builder.getDialog().hide();
-                }
-            });
-            builder.getCamera().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startCamera();
-                    builder.getDialog().hide();
-                }
-            });
-
-
+        final CustomDialog.Builder builder = new CustomDialog.Builder(this);
+        builder.create();
+        builder.getAlbum().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAlbum();
+                builder.getDialog().hide();
+            }
+        });
+        builder.getCamera().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCamera();
+                builder.getDialog().hide();
+            }
+        });
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void startCamera() {
         Intent intent = new Intent();
@@ -172,6 +162,7 @@ public class ChangePersonActivity extends AppCompatActivity {
         //不加这句会报Read-only警告。且无法写入SD
         pictureFile.setWritable(true);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -187,7 +178,7 @@ public class ChangePersonActivity extends AppCompatActivity {
                     }
                     savePhotoToSD(bitmap);
                     updateSystemGallery();
-                    showPhoto();
+                    CameraDisPlayAndSavePhoto();
                     break;
                 }
                 case CHOOSE_PHOTO:
@@ -201,6 +192,7 @@ public class ChangePersonActivity extends AppCompatActivity {
                             handleImageBeforeKitKat(data);
                         }
                     }
+
                     break;
                 default:
                     break;
@@ -208,6 +200,7 @@ public class ChangePersonActivity extends AppCompatActivity {
             }
         }
     }
+
     private void updateSystemGallery() {
         //把文件插入到系统图库
         try {
@@ -223,11 +216,15 @@ public class ChangePersonActivity extends AppCompatActivity {
     }
 
     //显示照片
-    private void showPhoto() {
+    private void CameraDisPlayAndSavePhoto() {
         if (finalDir != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(finalDir);
+            byte[]images=img(bitmap);
+            //TODO:不用二进制存试试
+            minePagePersonService.setHeadshot(images);
             ImageView picture = findViewById(R.id.mine_picture_second);
             picture.setImageBitmap(bitmap);
+
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
@@ -240,6 +237,7 @@ public class ChangePersonActivity extends AppCompatActivity {
             //设置输出流
             os = new BufferedOutputStream(new FileOutputStream(pictureFile));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os); //100表示不压缩
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -268,7 +266,6 @@ public class ChangePersonActivity extends AppCompatActivity {
 
     @TargetApi(19)
     private void handleImageOnKitKat(Intent data) {
-        String imagePath = null;
         Uri uri = data.getData();
         if (DocumentsContract.isDocumentUri(this, uri)) {
             // 如果是document类型的Uri，则通过document id处理
@@ -288,13 +285,15 @@ public class ChangePersonActivity extends AppCompatActivity {
             // 如果是file类型的Uri，直接获取图片路径即可
             imagePath = uri.getPath();
         }
-        displayImage(imagePath); // 根据图片路径显示图片
+        AlbumDisPlayAndSavePhoto(imagePath); // 根据图片路径显示图片
+
     }
 
     private void handleImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
-        String imagePath = getImagePath(uri, null);
-        displayImage(imagePath);
+        String imagePaths = getImagePath(uri, null);
+        AlbumDisPlayAndSavePhoto(imagePaths);
+        imagePath = imagePaths;
     }
 
     private String getImagePath(Uri uri, String selection) {
@@ -310,28 +309,31 @@ public class ChangePersonActivity extends AppCompatActivity {
         return path;
     }
 
-    private void displayImage(String imagePath) {
+    private void AlbumDisPlayAndSavePhoto(String imagePath) {
         if (imagePath != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            bitmap = BitmapFactory.decodeFile(imagePath);
+            //TODO:不用二进制存试试
+            byte[]images=img(bitmap);
+            minePagePersonService.setHeadshot(images);
             ImageView picture = findViewById(R.id.mine_picture_second);
             picture.setImageBitmap(bitmap);
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
+
     }
+
     //权限
     private void PermissionManager() {
         if
         (
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                        ||ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
-                        ||ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(this, Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED
         )
             ActivityCompat.requestPermissions(this, new String[]
                     {Manifest.permission.WAKE_LOCK, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
     }
-
 
 
 }

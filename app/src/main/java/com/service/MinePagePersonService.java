@@ -24,6 +24,32 @@ public class MinePagePersonService {
         this.list = list;
     }
 
+    private byte[] headshot;//头像
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getPasswrod() {
+        return passwrod;
+    }
+
+    public void setPasswrod(String passwrod) {
+        this.passwrod = passwrod;
+    }
+
+    public static void setInstance(MinePagePersonService instance) {
+        MinePagePersonService.instance = instance;
+    }
+
+    public byte[] getHeadshot() {
+        return headshot;
+    }
+
+    public void setHeadshot(byte[] headshot) {
+        this.headshot = headshot;
+    }
+
 
     public MinePagePerson getMinePagePerson() {
         return this.minePagePerson;
@@ -68,8 +94,8 @@ public class MinePagePersonService {
         minePagePerson.setBirthday("");
         minePagePerson.setName("");
         minePagePerson.setSex("");
-        minePagePerson.setPhonenumber(phonenumber);
-        minePagePerson.setPassword(passwrod);
+        minePagePerson.setPhonenumber("");
+        minePagePerson.setPassword("");
         list.add(minePagePerson);
     }
 
@@ -93,5 +119,6 @@ public class MinePagePersonService {
             }
         }
     }
+
 
 }

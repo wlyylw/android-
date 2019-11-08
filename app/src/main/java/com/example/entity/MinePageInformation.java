@@ -4,9 +4,6 @@ public class MinePageInformation {
     String name;
     String information;
 
-    public MinePageInformation(){
-
-    }
 
     public MinePageInformation(String name, String information)
     {
@@ -26,7 +23,4 @@ public class MinePageInformation {
         return information;
     }
 
-    public void setInformation(String information) {
-        this.information = information;
-    }
 }

@@ -1,14 +1,18 @@
 package com.example.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,12 +28,14 @@ import com.service.MinePageDynamicService;
 import com.service.MinePagePersonService;
 import com.service.MinePageInformationService;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MinePage extends BaseFragment {
-    static int MINE_PAGE_REQUESTCODE =500;
+public class MinePage extends Fragment {
+    ImageView imageView;
     MinePageDynamicService minePageDynamicService;
     RecyclerView recyclerViewDynamic;
 
@@ -48,7 +54,6 @@ public class MinePage extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         //Dynamic
         minePageDynamicService = MinePageDynamicService.getInstance();
         listMineDynamic = minePageDynamicService.getList();
@@ -116,6 +121,7 @@ public class MinePage extends BaseFragment {
         recyclerViewPerson.setLayoutManager(layoutManagerPerson);
         MinePagePersonAdapter minePagePersonAdapter = new MinePagePersonAdapter(listMinePerson);
         recyclerViewPerson.setAdapter(minePagePersonAdapter);
+
     }
 
     @Override

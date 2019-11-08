@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.adapter.SectionsIndexPagerAdapter;
@@ -14,7 +15,7 @@ import com.example.news.R;
 import com.google.android.material.tabs.TabLayout;
 
 
-public class IndexPage extends BaseFragment {
+public class IndexPage extends Fragment {
 
 
     private TabLayout tabLayout;

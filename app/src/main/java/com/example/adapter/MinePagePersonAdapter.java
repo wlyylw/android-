@@ -1,6 +1,8 @@
 package com.example.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.activity.ChangePersonActivity;
 import com.example.entity.MinePagePerson;
 import com.example.news.R;
+import com.service.MinePagePersonService;
 
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
 public class MinePagePersonAdapter extends  RecyclerView.Adapter<MinePagePersonAdapter.ViewHolder>{
-    private static final int MINE_REQUEST_CODE_CHANGE =500;
     private List<MinePagePerson> list;
-
     static  class ViewHolder extends RecyclerView.ViewHolder{
 
         View ClickView;
@@ -55,6 +58,16 @@ public class MinePagePersonAdapter extends  RecyclerView.Adapter<MinePagePersonA
                 parent.getContext().startActivity(intent);
             }
         });
+        MinePagePersonService minePagePersonService =MinePagePersonService.getInstance();
+            if(minePagePersonService.getHeadshot() ==null)
+            {
+                holder.imageView.setImageResource(R.drawable.touxiang);
+            }
+            else {
+                byte[] images = minePagePersonService.getHeadshot();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(images, 0, images.length);
+                holder.imageView.setImageBitmap(bitmap);
+            }
         return holder;
     }
 
@@ -62,6 +75,25 @@ public class MinePagePersonAdapter extends  RecyclerView.Adapter<MinePagePersonA
     public void onBindViewHolder(@NonNull MinePagePersonAdapter.ViewHolder holder, int position) {
         MinePagePerson MyPagePerson = list.get(position);
         holder.name.setText(MyPagePerson.getName());
+        List<MinePagePerson> listLitePal;
+        listLitePal =  LitePal.findAll(MinePagePerson.class);
+        MinePagePersonService minePagePersonService =MinePagePersonService.getInstance();
+        MinePagePerson minePagePerson= minePagePersonService.getMinePagePerson();
+        for(MinePagePerson minePagePersonTemp: listLitePal) {
+            if (minePagePersonTemp.getPhonenumber().equals(minePagePerson.getPhonenumber())) {
+                if (minePagePersonTemp.getPassword().equals(minePagePerson.getPassword())) {
+                    //TODO：头像
+                    if(minePagePersonService.getHeadshot() ==null)
+                    {
+                        holder.imageView.setImageResource(R.drawable.touxiang);
+                        return;
+                    }
+                    byte[]images=minePagePersonService.getHeadshot();
+                    Bitmap bitmap= BitmapFactory.decodeByteArray(images,0,images.length);
+                    holder.imageView.setImageBitmap(bitmap);
+                }
+            }
+    }
     }
 
     @Override

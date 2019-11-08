@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.adapter.SectionCirclePagerAdapter;
@@ -15,7 +16,7 @@ import com.example.news.R;
 import com.google.android.material.tabs.TabLayout;
 
 
-public class CirclePage extends BaseFragment {
+public class CirclePage extends Fragment {
 
     private TabLayout tabLayout;
 
