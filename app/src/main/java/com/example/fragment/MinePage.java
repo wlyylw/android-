@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,7 +83,13 @@ public class MinePage extends BaseFragment {
 
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        MinePagePersonService minePagePersonService = MinePagePersonService.getInstance();
+        Toast.makeText(getActivity(), "欢迎您:" + minePagePersonService.getPhonenumber(), Toast.LENGTH_SHORT).show();
 
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +106,16 @@ public class MinePage extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        minePagePersonService = MinePagePersonService.getInstance();
+        listMinePerson = minePagePersonService.getList();
+        MinePagePerson minePagePerson = minePagePersonService.getMinePagePerson();
+        listMinePerson.remove(0);
+        listMinePerson.add(minePagePerson);
+        recyclerViewPerson = getActivity().findViewById(R.id.recycler_view_mine_person);
+        RecyclerView.LayoutManager layoutManagerPerson = new LinearLayoutManager(getActivity());
+        recyclerViewPerson.setLayoutManager(layoutManagerPerson);
+        MinePagePersonAdapter minePagePersonAdapter = new MinePagePersonAdapter(listMinePerson);
+        recyclerViewPerson.setAdapter(minePagePersonAdapter);
     }
 
     @Override

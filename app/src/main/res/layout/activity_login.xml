@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.activity.Login"
+    tools:context="com.example.activity.LoginActivity"
     android:clickable="true"
-    android:background="@drawable/recycler_touch_bg"
+    android:background="@drawable/white_round_shape"
     >
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/login_toolbar"
@@ -24,15 +24,32 @@
 
 
     </androidx.appcompat.widget.Toolbar>
-    <TextView
-        android:paddingLeft="10dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="手机号快速登录"
-        android:textColor="@color/black"
-        android:textSize="30dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_round_shape">
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:src="@drawable/wy"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/white_round_shape"
+        android:layout_height="wrap_content">
+        <TextView
+            android:paddingLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="手机号快速登录"
+            android:textColor="@color/black"
+            android:textSize="30dp"
 
-        />
+            />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="手机号"
-            android:id="@+id/login_edit_tel"
+            android:inputType="phone"
+            android:id="@+id/login_phone_number"
             android:layout_weight="1"
             />
     </LinearLayout>
@@ -55,7 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="密码"
-            android:id="@+id/login_edit_password"
+            android:inputType="textPassword"
+            android:id="@+id/login_password"
             android:layout_weight="1"
             />
     </LinearLayout>
@@ -69,9 +88,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/red_round_shape"
             android:text="开始使用"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:textColor="@color/white"
-            android:id="@+id/login_button_start"
+            android:id="@+id/button_login"
+            android:clickable="true"
+            android:onClick="On_Login"
             />
 
     </LinearLayout>
@@ -86,6 +107,8 @@
             android:id="@+id/login_text_go_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="手机号注册"/>
+            android:text="手机号注册"
+            android:onClick="On_GO_Register"
+            android:clickable="true"/>
     </LinearLayout>
 </LinearLayout>

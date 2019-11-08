@@ -32,13 +32,19 @@ public class MinePagePersonAttrService {
     }
     private void InitEntity()
     {
-        MinePersonAttr minePersonAttr1 = new MinePersonAttr("昵称","五月她如景");
+        MinePersonAttr minePersonAttr1 = new MinePersonAttr("昵称","");
         list.add(minePersonAttr1);
-        MinePersonAttr minePersonAttr2 = new MinePersonAttr("性别","女");
+        MinePersonAttr minePersonAttr2 = new MinePersonAttr("性别","");
         list.add(minePersonAttr2);
         MinePersonAttr minePersonAttr3 = new MinePersonAttr("生日","");
         list.add(minePersonAttr3);
 
     }
 
+    public void  setMinePagePersonAttrService(String name,String sex,String birthday)
+    {
+        list.get(0).setDetail(name);
+        list.get(1).setDetail(sex);
+        list.get(2).setDetail(birthday);
+    }
 }

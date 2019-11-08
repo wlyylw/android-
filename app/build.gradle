@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.mob.sdk'
 android {
     android {
         lintOptions {
@@ -36,5 +36,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.github.armcha:LuseenBottomNavigation:1.8.2' //底部布局
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'//tab
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'org.litepal.android:java:3.0.0'
+}
+MobSDK {
+    appKey "2d04c2a35cd80"
+    appSecret "80b2f4f53c2cdb31b9cf5a9859211314"
+    SMSSDK {}
 }

@@ -34,12 +34,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adapter.MinePageInformationAdapter;
+import com.example.adapter.MinePagePersonAdapter;
 import com.example.adapter.MinePagePersonAttrAdapter;
+import com.example.entity.MinePagePerson;
 import com.example.entity.MinePersonAttr;
 import com.example.news.R;
 import com.example.util.CustomDialog;
 import com.service.MinePageInformationService;
 import com.service.MinePagePersonAttrService;
+import com.service.MinePagePersonService;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -54,18 +57,21 @@ import java.util.List;
 public class ChangePersonActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageView;
-
+    MinePagePersonService minePagePersonService;
+    RecyclerView recyclerViewPerson;
     public String finalDir;       //最终路径
     public static final int PHOTO_STATUS_CODE = 100;
     private Uri pictureUri;
     private String pictureName;
     private File pictureFile;        //图片文件
     public static final int CHOOSE_PHOTO = 2;
-
+    private List<MinePagePerson> listMinePerson = new ArrayList<>();
     private List<MinePersonAttr> list = new ArrayList<>();
     MinePagePersonAttrService minePagePersonAttrService;
     RecyclerView recyclerView;
-
+    String detail1;
+    String detail2;
+    String detail3;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,14 @@ public class ChangePersonActivity extends AppCompatActivity {
         ListenerManager();
         minePagePersonAttrService = minePagePersonAttrService.getInstance();
         list = minePagePersonAttrService.getList();
+        //写成屎山了
+        minePagePersonService = minePagePersonService.getInstance();
+        listMinePerson = minePagePersonService.getList();
+        detail1 = listMinePerson.get(0).getName();
+        detail2 = listMinePerson.get(0).getSex();
+        detail3 = listMinePerson.get(0).getBirthday();
+        minePagePersonAttrService.setMinePagePersonAttrService(detail1,detail2,detail3);
+
         recyclerView =findViewById(R.id.recycler_view_person_attr);
         RecyclerView.LayoutManager layoutManagerA = new LinearLayoutManager(ChangePersonActivity.this);
         recyclerView.setLayoutManager(layoutManagerA);
@@ -82,6 +96,21 @@ public class ChangePersonActivity extends AppCompatActivity {
         recyclerView.setAdapter(minePagePersonAttrAdapter);
 
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        minePagePersonService = MinePagePersonService.getInstance();
+//        listMinePerson = minePagePersonService.getList();
+//        MinePagePerson minePagePerson = minePagePersonService.getMinePagePerson();
+//        listMinePerson.remove(0);
+//        listMinePerson.add(minePagePerson);
+//        recyclerViewPerson = findViewById(R.id.recycler_view_mine_person);
+////        RecyclerView.LayoutManager layoutManagerPerson = new LinearLayoutManager(this);
+////        recyclerViewPerson.setLayoutManager(layoutManagerPerson);
+////        MinePagePersonAdapter minePagePersonAdapter = new MinePagePersonAdapter(listMinePerson);
+////        recyclerViewPerson.setAdapter(minePagePersonAdapter);
+//    }
     private void ListenerManager()
     {
         toolbar.setOnClickListener(new View.OnClickListener() {

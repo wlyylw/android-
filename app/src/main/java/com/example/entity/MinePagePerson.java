@@ -1,18 +1,22 @@
 package com.example.entity;
 
+import org.litepal.crud.LitePalSupport;
+
 import java.util.Date;
 
-public class MinePagePerson {
+public class MinePagePerson  extends LitePalSupport {
     String name;
     String sex;
-    Date birthday;
+    String birthday;
+    String phonenumber;
+    String password;
 
-    public String getTelphone() {
-        return telphone;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
-    public void setTelphone(String telphone) {
-        this.telphone = telphone;
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public String getPassword() {
@@ -23,8 +27,6 @@ public class MinePagePerson {
         this.password = password;
     }
 
-    String telphone;
-    String password;
     public String getName() {
         return name;
     }
@@ -48,11 +50,11 @@ public class MinePagePerson {
         this.sex = sex;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

@@ -1,8 +1,7 @@
 package com.example.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,23 +17,34 @@ import com.example.news.R;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationItem;
 import com.luseen.luseenbottomnavigation.BottomNavigation.BottomNavigationView;
 import com.luseen.luseenbottomnavigation.BottomNavigation.OnBottomNavigationItemClickListener;
+import com.service.MinePagePersonService;
+
+import org.litepal.LitePal;
 
 public class MainActivity extends AppCompatActivity {
+//    private final  static  int REQUEST_CODE_LOGIN=520;
     private Fragment currentFragment  = new Fragment();
     private IndexPage indexPage = new IndexPage();
     private VideoPage videoPage = new VideoPage();
     private MinePage minePage = new MinePage();
     private CirclePage circlePage = new CirclePage();
+    int page_id=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LitePal.getDatabase();
         BottomInit();
     }
 
 
-
+    @Override
+    protected  void onResume() {
+        super.onResume();
+        page_id = getIntent().getIntExtra("page_id", 0);
+        ChooseWhichFragment();
+    }
 
     private void switchFragment(Fragment targetFragment){
         FragmentTransaction transaction = getSupportFragmentManager()
@@ -64,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
         switchFragment(circlePage);
     }
     private void switchToMine(){
+        MinePagePersonService minePagePersonService = MinePagePersonService.getInstance();
+        if(!minePagePersonService.isLogined())
+        {
+            Toast.makeText(this, "您尚未登录！", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            //TODO:可以考虑再传参数..再写的话
+            return;
+        }
         switchFragment(minePage);
     }
     private void BottomInit() {
@@ -99,6 +118,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         switchToIndex();//default
+    }
+    private  void ChooseWhichFragment()
+    {
+        switch (page_id)
+        {
+            case 0:
+                switchToIndex();
+                break;
+            case 1:
+                switchToVideo();
+                break;
+            case 2:
+                switchToCircle();
+                break;
+            case 3:
+                switchToMine();
+                break;
+                default:
+                    break;
+        }
     }
 
 
