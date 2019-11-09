@@ -1,11 +1,14 @@
 package com.example.entity;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
 import java.util.Date;
 
 public class MinePagePerson  extends LitePalSupport {
+    @Column(unique = true,defaultValue = "unknown")
     String name;
+    int id;
     String sex;
     String birthday;
     String phonenumber;
@@ -19,6 +22,10 @@ public class MinePagePerson  extends LitePalSupport {
     public void setHeadshot(byte[] headshot) {
         this.headshot = headshot;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public String getPhonenumber() {
         return phonenumber;

@@ -6,6 +6,6 @@
     <list>
         <mapping class="com.example.entity.MinePagePerson" />
     </list>
-
-
+    <storage value ="external"/>
+<!--数据库定义在外部-->
 </litepal>

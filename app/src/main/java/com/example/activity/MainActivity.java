@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.entity.MinePagePerson;
 import com.example.fragment.CirclePage;
 import com.example.fragment.IndexPage;
 import com.example.fragment.MinePage;

@@ -114,8 +114,7 @@ public class MinePage extends Fragment {
         minePagePersonService = MinePagePersonService.getInstance();
         listMinePerson = minePagePersonService.getList();
         MinePagePerson minePagePerson = minePagePersonService.getMinePagePerson();
-        listMinePerson.remove(0);
-        listMinePerson.add(minePagePerson);
+        listMinePerson.set(0,minePagePerson);
         recyclerViewPerson = getActivity().findViewById(R.id.recycler_view_mine_person);
         RecyclerView.LayoutManager layoutManagerPerson = new LinearLayoutManager(getActivity());
         recyclerViewPerson.setLayoutManager(layoutManagerPerson);

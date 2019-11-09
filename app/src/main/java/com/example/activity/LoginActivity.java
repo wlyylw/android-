@@ -34,7 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         list =  LitePal.findAll(MinePagePerson.class);
     }
 
+    @Override protected  void onStart() {
+
+        super.onStart();
+    }
+
     public void On_Login(View view) {
+        int id = 0;
         strpassword = password.getText().toString();
         strphonenumber = phonenumber.getText().toString();
         if(list.size()==0) {
@@ -43,12 +49,14 @@ public class LoginActivity extends AppCompatActivity {
         }
         for(MinePagePerson minePagePerson: list)
         {
+            id++;
             if ( minePagePerson.getPhonenumber().equals(strphonenumber))
             {
                 flag_phonenumber=1;
                 if(minePagePerson.getPassword().equals(strpassword))
                 {
                     minePagePersonService.Login(strphonenumber,strpassword);
+                    minePagePersonService.getMinePagePerson().setId(id);
                     minePagePersonService.setMinePagePerson(minePagePerson);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("page_id",3);

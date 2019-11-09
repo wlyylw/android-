@@ -74,7 +74,6 @@ public class MinePagePersonAttrAdapter extends  RecyclerView.Adapter<MinePagePer
                                             MinePagePerson  minePagePerson = minePagePersonService.getMinePagePerson();
                                             minePagePerson.setName(et.getText().toString());
                                             minePagePersonService.setMinePagePerson(minePagePerson);
-                                            minePagePerson.setName(et.getText().toString());
                                             minePagePerson.save();
                                             holder.detail.setText(et.getText().toString());
                                         }
@@ -100,7 +99,6 @@ public class MinePagePersonAttrAdapter extends  RecyclerView.Adapter<MinePagePer
                                 MinePagePerson  minePagePerson = minePagePersonService.getMinePagePerson();
                                 minePagePerson.setSex(items[mCurrentItem]);
                                 minePagePersonService.setMinePagePerson(minePagePerson);
-                                minePagePerson.setSex(items[mCurrentItem]);
                                 minePagePerson.save();
                                 alertDialogRadio.dismiss();
                             }
@@ -127,7 +125,6 @@ public class MinePagePersonAttrAdapter extends  RecyclerView.Adapter<MinePagePer
                                 minePagePerson.setBirthday(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
                                 minePagePersonService.setMinePagePerson(minePagePerson);
                                 holder.detail.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
-                                minePagePerson.setBirthday(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
                                 minePagePerson.save();
                             }
                         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));

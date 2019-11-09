@@ -35,6 +35,8 @@ import com.example.util.CustomDialog;
 import com.service.MinePagePersonAttrService;
 import com.service.MinePagePersonService;
 
+import org.litepal.LitePal;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,7 +50,7 @@ import java.util.List;
 public class ChangePersonActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageView;
-    MinePagePersonService minePagePersonService;
+    MinePagePersonService minePagePersonService = MinePagePersonService.getInstance();;
     public String finalDir;
     public static final int PHOTO_STATUS_CODE = 100;
     private Uri pictureUri;
@@ -56,7 +58,7 @@ public class ChangePersonActivity extends AppCompatActivity {
     private File pictureFile;
     public static final int CHOOSE_PHOTO = 2;
     Bitmap bitmap;
-    List<MinePagePerson> listMinePerson = new ArrayList<>();
+
     List<MinePersonAttr> listInitAttr = new ArrayList<>();
     RecyclerView recyclerView;
     String imagePath;
@@ -67,7 +69,6 @@ public class ChangePersonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_person);
 
-        minePagePersonService = MinePagePersonService.getInstance();
 
         toolbar = findViewById(R.id.change_person_toolbar);
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -96,9 +97,13 @@ public class ChangePersonActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.touxiang);
             return;
         }
-        byte[] images = minePagePersonService.getHeadshot();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(images, 0, images.length);
-        imageView.setImageBitmap(bitmap);
+        else
+        {
+            byte[] images =minePagePersonService.getHeadshot();
+            Bitmap bitmap=BitmapFactory.decodeByteArray(images,0,images.length);
+            imageView.setImageBitmap(bitmap);
+        }
+
     }
 
     @Override
@@ -108,16 +113,20 @@ public class ChangePersonActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.touxiang);
             return;
         }
-        byte[] images = minePagePersonService.getHeadshot();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(images, 0, images.length);
-        imageView.setImageBitmap(bitmap);
+        else
+        {
+            byte[] images =minePagePersonService.getHeadshot();
+            Bitmap bitmap=BitmapFactory.decodeByteArray(images,0,images.length);
+            imageView.setImageBitmap(bitmap);
+        }
     }
 
     //图片转换为字节
     private byte[]img(Bitmap bitmap){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        return baos.toByteArray();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] byteArray = baos.toByteArray();
+        return byteArray;
     }
 
     public void On_Change_picture(View view) {
@@ -220,10 +229,7 @@ public class ChangePersonActivity extends AppCompatActivity {
         if (finalDir != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(finalDir);
             byte[]images=img(bitmap);
-            //TODO:不用二进制存试试
             minePagePersonService.setHeadshot(images);
-            ImageView picture = findViewById(R.id.mine_picture_second);
-            picture.setImageBitmap(bitmap);
 
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
@@ -237,7 +243,6 @@ public class ChangePersonActivity extends AppCompatActivity {
             //设置输出流
             os = new BufferedOutputStream(new FileOutputStream(pictureFile));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os); //100表示不压缩
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -286,7 +291,6 @@ public class ChangePersonActivity extends AppCompatActivity {
             imagePath = uri.getPath();
         }
         AlbumDisPlayAndSavePhoto(imagePath); // 根据图片路径显示图片
-
     }
 
     private void handleImageBeforeKitKat(Intent data) {
@@ -315,8 +319,6 @@ public class ChangePersonActivity extends AppCompatActivity {
             //TODO:不用二进制存试试
             byte[]images=img(bitmap);
             minePagePersonService.setHeadshot(images);
-            ImageView picture = findViewById(R.id.mine_picture_second);
-            picture.setImageBitmap(bitmap);
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }

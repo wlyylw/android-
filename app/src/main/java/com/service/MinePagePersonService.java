@@ -16,6 +16,16 @@ import java.util.List;
 
 public class MinePagePersonService {
     ArrayList<MinePagePerson> list = new ArrayList<>();
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     boolean logined;
     String phonenumber;
     String passwrod;
@@ -62,8 +72,21 @@ public class MinePagePersonService {
 
     public boolean Login(String phonenumber, String passwrod)
     {
-        this.passwrod = passwrod;
-        this.phonenumber = phonenumber;
+        //TODO:找
+        this.passwrod =passwrod;
+        this.phonenumber =phonenumber;
+        List<MinePagePerson> list = LitePal.findAll(MinePagePerson.class);
+        for (MinePagePerson minePagePerson : list)
+        {
+            if(minePagePerson.getPassword().equals(passwrod) &&minePagePerson.getPhonenumber().equals(phonenumber))
+            {
+                this.minePagePerson = minePagePerson;
+                this.headshot = minePagePerson.getHeadshot();
+                logined =true;
+                return true;
+            }
+
+        }
         logined = true;
         return true;
     }
