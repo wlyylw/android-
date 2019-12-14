@@ -13,13 +13,13 @@
             android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:clickable="true"
-                    android:paddingTop="30dp"
-                    android:background="#ffffff"
-                    android:overScrollMode="never"
+                    android:id="@+id/recycler_view_mine_person"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recycler_view_mine_person"
+                    android:background="#ffffff"
+                    android:clickable="true"
+                    android:overScrollMode="never"
+                    android:paddingTop="30dp"
                     tools:ignore="MissingConstraints" />
 
                 <androidx.recyclerview.widget.RecyclerView

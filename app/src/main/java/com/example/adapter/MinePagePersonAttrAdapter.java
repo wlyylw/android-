@@ -134,7 +134,7 @@ public class MinePagePersonAttrAdapter extends  RecyclerView.Adapter<MinePagePer
                         default:
                             break;
                 }
-                //TODO: Update Litepal
+
             }
         });
         return holder;

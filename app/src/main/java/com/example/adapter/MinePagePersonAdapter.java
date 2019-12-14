@@ -82,7 +82,6 @@ public class MinePagePersonAdapter extends  RecyclerView.Adapter<MinePagePersonA
         for(MinePagePerson minePagePersonTemp: listLitePal) {
             if (minePagePersonTemp.getPhonenumber().equals(minePagePerson.getPhonenumber())) {
                 if (minePagePersonTemp.getPassword().equals(minePagePerson.getPassword())) {
-                    //TODO：头像
                     if(minePagePersonService.getHeadshot() ==null)
                     {
                         holder.imageView.setImageResource(R.drawable.touxiang);

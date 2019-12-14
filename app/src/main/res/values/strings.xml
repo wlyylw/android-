@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">news</string>
     <string name="hello">Hello blank fragment</string>
-    <string name="tab_text_index_1">关注</string>
-    <string name="tab_text_index_2">头条</string>
-    <string name="tab_text_index_3">视频</string>
-    <string name="tab_text_index_4">娱乐</string>
-    <string name="tab_text_index_5">体育</string>
-    <string name="tab_text_index_6">新时代</string>
-    <string name="tab_text_index_7">要闻</string>
-    <string name="tab_text_index_8">段子</string>
-    <string name="tab_text_index_9">知否</string>
-    <string name="tab_text_index_10">杭州</string>
+    <string name="tab_text_index_1">新闻</string>
+    <string name="tab_text_index_2">娱乐</string>
+    <string name="tab_text_index_3">体育</string>
+    <string name="tab_text_index_4">财经</string>
+    <string name="tab_text_index_5">军事</string>
+    <string name="tab_text_index_6">科技</string>
+    <string name="tab_text_index_7">手机</string>
+    <string name="tab_text_index_8">旅游</string>
+    <string name="tab_text_index_9">时尚</string>
+    <string name="tab_text_index_10">游戏</string>
 
 
     <string name="tab_text_video_1">推荐</string>

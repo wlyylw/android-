@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "com.example.news"
         minSdkVersion 15
-        targetSdkVersion 29
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -22,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 }
 
@@ -33,11 +37,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.github.armcha:LuseenBottomNavigation:1.8.2' //底部布局
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'org.litepal.android:java:3.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.5.0'
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'fm.jiecao:jiecaovideoplayer:4.8.3'
+    implementation 'com.bm.photoview:library:1.4.0'
+    implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
+
 }
 MobSDK {
     appKey "2d04c2a35cd80"

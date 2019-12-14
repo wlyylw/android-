@@ -35,7 +35,6 @@ import com.example.util.CustomDialog;
 import com.service.MinePagePersonAttrService;
 import com.service.MinePagePersonService;
 
-import org.litepal.LitePal;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -50,7 +49,7 @@ import java.util.List;
 public class ChangePersonActivity extends AppCompatActivity {
     Toolbar toolbar;
     ImageView imageView;
-    MinePagePersonService minePagePersonService = MinePagePersonService.getInstance();;
+    MinePagePersonService minePagePersonService = MinePagePersonService.getInstance();
     public String finalDir;
     public static final int PHOTO_STATUS_CODE = 100;
     private Uri pictureUri;
@@ -192,16 +191,8 @@ public class ChangePersonActivity extends AppCompatActivity {
                 }
                 case CHOOSE_PHOTO:
                     if (resultCode == RESULT_OK) {
-                        // 判断手机系统版本号
-                        if (Build.VERSION.SDK_INT >= 19) {
-                            // 4.4及以上系统使用这个方法处理图片
                             handleImageOnKitKat(data);
-                        } else {
-                            // 4.4以下系统使用这个方法处理图片
-                            handleImageBeforeKitKat(data);
-                        }
                     }
-
                     break;
                 default:
                     break;
@@ -293,12 +284,6 @@ public class ChangePersonActivity extends AppCompatActivity {
         AlbumDisPlayAndSavePhoto(imagePath); // 根据图片路径显示图片
     }
 
-    private void handleImageBeforeKitKat(Intent data) {
-        Uri uri = data.getData();
-        String imagePaths = getImagePath(uri, null);
-        AlbumDisPlayAndSavePhoto(imagePaths);
-        imagePath = imagePaths;
-    }
 
     private String getImagePath(Uri uri, String selection) {
         String path = null;
@@ -316,7 +301,6 @@ public class ChangePersonActivity extends AppCompatActivity {
     private void AlbumDisPlayAndSavePhoto(String imagePath) {
         if (imagePath != null) {
             bitmap = BitmapFactory.decodeFile(imagePath);
-            //TODO:不用二进制存试试
             byte[]images=img(bitmap);
             minePagePersonService.setHeadshot(images);
         } else {

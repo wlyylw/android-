@@ -30,6 +30,8 @@ public class SectionsIndexPagerAdapter extends FragmentPagerAdapter {
     public SectionsIndexPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+
+
     }
 
     @Override
@@ -47,7 +49,7 @@ public class SectionsIndexPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 10;
+        // Show 7
+        return 6;
     }
 }
